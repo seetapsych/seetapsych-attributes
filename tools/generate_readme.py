@@ -24,6 +24,19 @@ def schema2markdown(schema: dict[str, Any]) -> str:
     return ''.join(md)
 
 
+def fix_markdown_headers(text: str) -> str:
+    lines = text.splitlines()
+    result = []
+
+    for i, line in enumerate(lines):
+        if line.startswith('#'):
+            if i > 0 and lines[i - 1].strip() != '':
+                result.append('')
+        result.append(line)
+
+    return '\n'.join(result)
+
+
 def main():
     output = os.path.join(ROOT, '..', 'README.md')
 
@@ -49,6 +62,7 @@ def main():
     ])
 
     content = '\n\n'.join([header, neck, *articles])
+    content = fix_markdown_headers(content)
 
     with open(output, 'w', encoding='utf-8') as f:
         f.write(content)
