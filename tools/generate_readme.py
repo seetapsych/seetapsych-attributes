@@ -39,7 +39,7 @@ def main():
 
         brief = spec.get('x-brief', '')
         md = re.sub(r'^#', r'##', md, flags=re.MULTILINE)
-        tag = key
+        tag = key.lower().replace('/', '').replace(' ', '-')
 
         catalog.append((key, tag, brief))
         articles.append(f'<a id="{tag}"></a>\n{md}')

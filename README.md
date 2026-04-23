@@ -11,10 +11,10 @@ providing a unified standard so that different algorithm implementations can pro
 
 ## Catalog
 
-- [face/detection](#face/detection) Obtain the face detection results, represented as rectangular bounding boxes.
-- [face/landmarks](#face/landmarks) Get facial landmarks for basic alignment, including the centers of the left and right eyes, the nose tip, and the positions of the left and right mouth corners.
+- [face/detection](#facedetection) Obtain the face detection results, represented as rectangular bounding boxes.
+- [face/landmarks](#facelandmarks) Get facial landmarks for basic alignment, including the centers of the left and right eyes, the nose tip, and the positions of the left and right mouth corners.
 
-<a id="face/detection"></a>
+<a id="facedetection"></a>
 ## face/detection
 
 ### Properties
@@ -47,7 +47,7 @@ providing a unified standard so that different algorithm implementations can pro
 
 
 
-<a id="face/landmarks"></a>
+<a id="facelandmarks"></a>
 ## face/landmarks
 
 ### Properties
