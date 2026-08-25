@@ -21,6 +21,9 @@
 *.log
 .env
 
+# generated files
+seetapsych_attributes/_version.py
+
 # compiled files
 *.pyc
 __pycache__/

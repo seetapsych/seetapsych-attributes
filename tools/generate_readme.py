@@ -11,7 +11,7 @@ if not os.environ.get('LANG'):
 
 import jsonschema2md
 
-from fabopsy_attributes.schema import schema
+from seetapsych_attributes.schema import schema
 
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
