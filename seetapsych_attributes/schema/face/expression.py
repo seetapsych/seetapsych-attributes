@@ -20,22 +20,24 @@ class Expression(BaseModel):
 
 
 class Report(BaseModel):
-    expression: Expression
+    face_expression: list[Expression]
 
     model_config = ConfigDict(
         title="face/expression",
         json_schema_extra={
             "x-brief": "Indicate the confidence level of each expression.",
             "examples": [{
-                "face_expression": {
-                    "neutral": 0.01,
-                    "anger": 0.01,
-                    "disgust": 0.01,
-                    "fear": 0.01,
-                    "happy": 0.94,
-                    "sad": 0.01,
-                    "surprise": 0.01,
-                },
+                "face_expression": [
+                    {
+                        "neutral": 0.01,
+                        "anger": 0.01,
+                        "disgust": 0.01,
+                        "fear": 0.01,
+                        "happy": 0.94,
+                        "sad": 0.01,
+                        "surprise": 0.01,
+                    },
+                ],
             }]
         }
     )

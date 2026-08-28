@@ -29,7 +29,7 @@ class ActionUnits(BaseModel):
 
 
 class Report(BaseModel):
-    action_units: ActionUnits
+    face_action_units: list[ActionUnits]
 
     model_config = ConfigDict(
         title="face/action_units",
@@ -37,24 +37,26 @@ class Report(BaseModel):
             "x-brief": "Indicate the confidence level of each Action Unit. "
                        "Not all Action Units' results may be output.",
             "examples": [{
-                "face_action_units": {
-                    "AU1": 0.5,
-                    "AU2": 0.5,
-                    "AU4": 0.5,
-                    "AU5": 0.5,
-                    "AU6": 0.5,
-                    "AU7": 0.5,
-                    "AU9": 0.5,
-                    "AU10": 0.5,
-                    "AU12": 0.5,
-                    "AU15": 0.5,
-                    "AU17": 0.5,
-                    "AU20": 0.5,
-                    "AU23": 0.5,
-                    "AU24": 0.5,
-                    "AU25": 0.5,
-                    "AU26": 0.5,
-                },
+                "face_action_units": [
+                    {
+                        "AU1": 0.5,
+                        "AU2": 0.5,
+                        "AU4": 0.5,
+                        "AU5": 0.5,
+                        "AU6": 0.5,
+                        "AU7": 0.5,
+                        "AU9": 0.5,
+                        "AU10": 0.5,
+                        "AU12": 0.5,
+                        "AU15": 0.5,
+                        "AU17": 0.5,
+                        "AU20": 0.5,
+                        "AU23": 0.5,
+                        "AU24": 0.5,
+                        "AU25": 0.5,
+                        "AU26": 0.5,
+                    },
+                ],
             }]
         }
     )

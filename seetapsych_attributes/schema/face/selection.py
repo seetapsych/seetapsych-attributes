@@ -17,7 +17,7 @@ class Selection(BaseModel):
 
 
 class Report(BaseModel):
-    face_selection: list[Selection]
+    face_selection: Selection
 
     model_config = ConfigDict(
         title="face/selection",
