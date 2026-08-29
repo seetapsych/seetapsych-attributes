@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from typing import Annotated, Optional
+from typing import Annotated, Any, Optional
 
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -10,9 +10,27 @@ __all__ = [
 
 
 class SocialGazePerson(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     head_location_xyxy: Annotated[list[int], Field(min_length=4, max_length=4)]
     gaze_point_px: Annotated[list[float], Field(min_length=2, max_length=2)]
-    heatmap: list[list[float]] = Field(..., description="2D heatmap array of gaze likelihood.")
+    heatmap: Any = Field(
+        ...,
+        description=(
+            "2D gaze likelihood heatmap. "
+            "Runtime type: numpy.ndarray of float32, "
+            "shape [image_height, image_width], values in [0, 1] probability range. "
+            "Serialize with .tolist() to 2D nested number array for JSON transport."
+        ),
+        json_schema_extra={
+            "type": "array",
+            "items": {"type": "array", "items": {"type": "number"}},
+            "example_description": (
+                "numpy.ndarray(shape=[H, W], dtype=float32) — "
+                "use .tolist() to serialize to nested list for JSON transport."
+            ),
+        },
+    )
     social_gaze_id: int = Field(..., description="Integer ID of the social gaze relation class.")
     social_gaze_label: str = Field(..., description="Human-readable label of the social gaze relation (e.g. looking-at, mutual, avert).")
 
@@ -36,14 +54,14 @@ class Report(BaseModel):
                     "principal": {
                         "head_location_xyxy": [100, 200, 300, 400],
                         "gaze_point_px": [800.0, 300.0],
-                        "heatmap": [[0.1, 0.2], [0.3, 0.4]],
+                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) — 2D [0,1] gaze likelihood heatmap",
                         "social_gaze_id": 0,
                         "social_gaze_label": "looking-at",
                     },
                     "associate": {
                         "head_location_xyxy": [600, 200, 800, 400],
                         "gaze_point_px": [200.0, 300.0],
-                        "heatmap": [[0.2, 0.1], [0.4, 0.3]],
+                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) — 2D [0,1] gaze likelihood heatmap",
                         "social_gaze_id": 0,
                         "social_gaze_label": "looking-at",
                     },

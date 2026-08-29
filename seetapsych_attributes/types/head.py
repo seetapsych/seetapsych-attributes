@@ -43,8 +43,9 @@ class HeadGazePoint(TypedDict):
     head_location_xyxy: list[int]
     # [x, y] — predicted 2D gaze target on the scene image in pixels
     gaze_point_px: list[float]
-    # 2D gaze likelihood heatmap over the scene
-    heatmap: list[list[float]]
+    # 2D gaze likelihood heatmap over the scene. numpy.ndarray of float32,
+    # shape [image_height, image_width], values in [0, 1] probability range.
+    heatmap: 'numpy.ndarray'
 
 
 # List of per-head scene gaze results.
@@ -58,8 +59,9 @@ class SocialGazePerson(TypedDict):
     head_location_xyxy: list[int]
     # [x, y] — this person's 2D gaze target in pixels
     gaze_point_px: list[float]
-    # 2D gaze likelihood heatmap
-    heatmap: list[list[float]]
+    # 2D gaze likelihood heatmap. numpy.ndarray of float32,
+    # shape [image_height, image_width], values in [0, 1] probability range.
+    heatmap: 'numpy.ndarray'
     # integer class ID of the social gaze relation
     social_gaze_id: int
     # human-readable label: e.g. looking-at, mutual, avert
