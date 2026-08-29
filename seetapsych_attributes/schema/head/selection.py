@@ -18,7 +18,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/selection",
         json_schema_extra={
-            "x-brief": "Select top-N head detections by size or confidence with spatial sorting options, and reorder head_detection accordingly.",
+            "description": "Top-N head selection result (count + original indices), reordering head_detection.",
             "examples": [{
                 "head_selection": {
                     "count": 1,

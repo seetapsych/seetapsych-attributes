@@ -20,7 +20,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/detection",
         json_schema_extra={
-            "x-brief": "YOLO-based multi-person head detection with configurable confidence and NMS thresholds.",
+            "description": "Multi-person head bounding box detection results.",
             "examples": [{
                 "head_detection": [
                     {

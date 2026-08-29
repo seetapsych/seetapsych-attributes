@@ -20,9 +20,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/landmarks",
         json_schema_extra={
-            "x-brief": "Get facial landmarks for basic alignment, "
-                       "including the centers of the left and right eyes, "
-                       "the nose tip, and the positions of the left and right mouth corners.",
+            "description": "Facial landmarks for basic alignment: L-eye, R-eye, nose, L-mouth, R-mouth (10 interleaved floats).",
             "examples": [{
                 "face_landmarks": [
                     {

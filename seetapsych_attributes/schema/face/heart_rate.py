@@ -21,7 +21,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/heart_rate",
         json_schema_extra={
-            "x-brief": "Estimate heart rate (BPM) from face video frames using rPPG or model-based methods.",
+            "description": "Heart rate (BPM) estimated from buffered face video frames.",
             "examples": [{
                 "face_heart_rate": {
                     "fps": 30.0,

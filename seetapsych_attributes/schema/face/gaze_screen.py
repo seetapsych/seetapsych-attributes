@@ -30,7 +30,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/gaze_screen",
         json_schema_extra={
-            "x-brief": "Estimate per-eye screen gaze coordinates and camera-space gaze vectors from face mesh.",
+            "description": "Per-eye screen-space gaze coordinates and camera-space gaze vectors.",
             "examples": [{
                 "face_gaze_screen": [
                     {

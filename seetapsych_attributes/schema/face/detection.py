@@ -20,7 +20,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/detection",
         json_schema_extra={
-            "x-brief": "Obtain the face detection results, represented as rectangular bounding boxes.",
+            "description": "Face detection results as rectangular bounding boxes.",
             "examples": [{
                 "face_detection": [
                     {

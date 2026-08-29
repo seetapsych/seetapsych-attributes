@@ -19,7 +19,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/dense_landmarks",
         json_schema_extra={
-            "x-brief": "Predict 280 dense facial landmarks from bounding box with optional refinement.",
+            "description": "280-point dense facial landmarks (560 interleaved [x,y] floats).",
             "examples": [{
                 "face_dense_landmarks": [
                     {

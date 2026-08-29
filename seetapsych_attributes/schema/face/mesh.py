@@ -19,7 +19,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/mesh",
         json_schema_extra={
-            "x-brief": "Extract 468-point 3D face mesh landmarks with optional blendshapes.",
+            "description": "468-point 3D face mesh landmarks in normalized coordinates.",
             "examples": [{
                 "face_mesh": [
                     {

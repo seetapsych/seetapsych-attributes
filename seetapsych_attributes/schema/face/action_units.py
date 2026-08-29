@@ -34,8 +34,8 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/action_units",
         json_schema_extra={
-            "x-brief": "Indicate the confidence level of each Action Unit. "
-                       "Not all Action Units' results may be output.",
+            "description": "Indicate the confidence level of each Action Unit. "
+                           "Not all Action Units' results may be output.",
             "examples": [{
                 "face_action_units": [
                     {

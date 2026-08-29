@@ -12,7 +12,7 @@ __all__ = [
 class Selection(BaseModel):
     pid: int = Field(
         ...,
-        description="PID of selected face detection. It will automatically update starting from 1.",
+        description="PID of selected face detection (1-based).",
     )
 
 
@@ -22,8 +22,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/selection",
         json_schema_extra={
-            "x-brief": "Indicates the result of face selection. "
-                       "It will update the properties of face/detection and face/landmarks.",
+            "description": "Selected face PID. Selected face order is reflected in face/detection and face/landmarks.",
             "examples": [{
                 "face_selection": {
                     "pid": 1

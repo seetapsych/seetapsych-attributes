@@ -29,7 +29,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/social_gaze",
         json_schema_extra={
-            "x-brief": "Infer social gaze relations (looking-at, mutual, avert) between pairs of people via CoSI dyadic model.",
+            "description": "Dyadic social gaze relations (looking-at, mutual, avert) between two detected people.",
             "examples": [{
                 "head_social_gaze": {
                     "success": True,

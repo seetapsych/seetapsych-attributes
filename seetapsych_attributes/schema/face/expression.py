@@ -25,7 +25,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/expression",
         json_schema_extra={
-            "x-brief": "Indicate the confidence level of each expression.",
+            "description": "Indicate the confidence level of each expression.",
             "examples": [{
                 "face_expression": [
                     {

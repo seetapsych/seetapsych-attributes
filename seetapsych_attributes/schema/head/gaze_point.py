@@ -21,7 +21,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/gaze_point",
         json_schema_extra={
-            "x-brief": "Predict per-head 2D gaze target point on scene image using CoSI transformer model with heatmap.",
+            "description": "Per-head 2D scene gaze target point with associated likelihood heatmap.",
             "examples": [{
                 "head_gaze_point": [
                     {
