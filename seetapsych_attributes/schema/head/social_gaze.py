@@ -19,15 +19,13 @@ class SocialGazePerson(BaseModel):
         description=(
             "2D gaze likelihood heatmap. "
             "Runtime type: numpy.ndarray of float32, "
-            "shape [image_height, image_width], values in [0, 1] probability range. "
-            "Serialize with .tolist() to 2D nested number array for JSON transport."
+            "shape [image_height, image_width], values in [0, 1] probability range."
         ),
         json_schema_extra={
             "type": "array",
             "items": {"type": "array", "items": {"type": "number"}},
             "example_description": (
-                "numpy.ndarray(shape=[H, W], dtype=float32) — "
-                "use .tolist() to serialize to nested list for JSON transport."
+                "numpy.ndarray(shape=[H, W], dtype=float32)"
             ),
         },
     )
@@ -54,14 +52,14 @@ class Report(BaseModel):
                     "principal": {
                         "head_location_xyxy": [100, 200, 300, 400],
                         "gaze_point_px": [800.0, 300.0],
-                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) — 2D [0,1] gaze likelihood heatmap",
+                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
                         "social_gaze_id": 0,
                         "social_gaze_label": "looking-at",
                     },
                     "associate": {
                         "head_location_xyxy": [600, 200, 800, 400],
                         "gaze_point_px": [200.0, 300.0],
-                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) — 2D [0,1] gaze likelihood heatmap",
+                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
                         "social_gaze_id": 0,
                         "social_gaze_label": "looking-at",
                     },

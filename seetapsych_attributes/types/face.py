@@ -32,7 +32,7 @@ __all__ = [
 class BBox(TypedDict):
     """Rectangular face detection result with confidence score."""
 
-    # [x1, y1, x2, y2] — pixel-coordinate bounding box
+    # [x1, y1, x2, y2] -- pixel-coordinate bounding box
     xyxy: list[float]
     # detection confidence in [0, 1]
     score: float
@@ -67,37 +67,37 @@ FaceSelection = Selection
 class ActionUnits(TypedDict, total=False):
     """Facial Action Unit activations (FACS). All fields optional."""
 
-    # [0,1] — Inner Brow Raiser
+    # [0,1] -- Inner Brow Raiser
     AU1: float
-    # [0,1] — Outer Brow Raiser
+    # [0,1] -- Outer Brow Raiser
     AU2: float
-    # [0,1] — Brow Lowerer
+    # [0,1] -- Brow Lowerer
     AU4: float
-    # [0,1] — Upper Lid Raiser
+    # [0,1] -- Upper Lid Raiser
     AU5: float
-    # [0,1] — Cheek Raiser
+    # [0,1] -- Cheek Raiser
     AU6: float
-    # [0,1] — Lid Tightener
+    # [0,1] -- Lid Tightener
     AU7: float
-    # [0,1] — Nose Wrinkler
+    # [0,1] -- Nose Wrinkler
     AU9: float
-    # [0,1] — Upper Lip Raiser
+    # [0,1] -- Upper Lip Raiser
     AU10: float
-    # [0,1] — Lip Corner Puller
+    # [0,1] -- Lip Corner Puller
     AU12: float
-    # [0,1] — Lip Corner Depressor
+    # [0,1] -- Lip Corner Depressor
     AU15: float
-    # [0,1] — Chin Raiser
+    # [0,1] -- Chin Raiser
     AU17: float
-    # [0,1] — Lip Stretcher
+    # [0,1] -- Lip Stretcher
     AU20: float
-    # [0,1] — Lip Tightener
+    # [0,1] -- Lip Tightener
     AU23: float
-    # [0,1] — Lip Pressor
+    # [0,1] -- Lip Pressor
     AU24: float
-    # [0,1] — Lips Part
+    # [0,1] -- Lips Part
     AU25: float
-    # [0,1] — Jaw Drop
+    # [0,1] -- Jaw Drop
     AU26: float
 
 

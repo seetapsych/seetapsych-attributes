@@ -17,7 +17,7 @@ __all__ = [
 class HeadBBox(TypedDict):
     """Multi-person head detection bounding box with integer pixel coordinates."""
 
-    # [x1, y1, x2, y2] — integer pixel bounding box
+    # [x1, y1, x2, y2] -- integer pixel bounding box
     xyxy: list[int]
     # head detection confidence in [0, 1]
     score: float
@@ -39,9 +39,9 @@ class HeadSelection(TypedDict):
 class HeadGazePoint(TypedDict):
     """Per-head 2D scene gaze point with associated likelihood heatmap."""
 
-    # [x1, y1, x2, y2] — head bbox corresponding to this gaze estimate
+    # [x1, y1, x2, y2] -- head bbox corresponding to this gaze estimate
     head_location_xyxy: list[int]
-    # [x, y] — predicted 2D gaze target on the scene image in pixels
+    # [x, y] -- predicted 2D gaze target on the scene image in pixels
     gaze_point_px: list[float]
     # 2D gaze likelihood heatmap over the scene. numpy.ndarray of float32,
     # shape [image_height, image_width], values in [0, 1] probability range.
@@ -55,9 +55,9 @@ HeadGazePointList = list[HeadGazePoint]
 class SocialGazePerson(TypedDict):
     """One participant in a dyadic social-gaze interaction."""
 
-    # [x1, y1, x2, y2] — this person's head bbox
+    # [x1, y1, x2, y2] -- this person's head bbox
     head_location_xyxy: list[int]
-    # [x, y] — this person's 2D gaze target in pixels
+    # [x, y] -- this person's 2D gaze target in pixels
     gaze_point_px: list[float]
     # 2D gaze likelihood heatmap. numpy.ndarray of float32,
     # shape [image_height, image_width], values in [0, 1] probability range.

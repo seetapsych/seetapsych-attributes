@@ -600,7 +600,7 @@ exported individually.
     - <a id="%24defs/HeadGazePoint/properties/head_location_xyxy/items"></a>**Items** *(integer)*
   - <a id="%24defs/HeadGazePoint/properties/gaze_point_px"></a>**`gaze_point_px`** *(array, required)*: Length must be equal to 2.
     - <a id="%24defs/HeadGazePoint/properties/gaze_point_px/items"></a>**Items** *(number)*
-  - <a id="%24defs/HeadGazePoint/properties/heatmap"></a>**`heatmap`** *(array, required)*: 2D gaze likelihood heatmap over the scene. Runtime type: numpy.ndarray of float32, shape [image_height, image_width], values in [0, 1] probability range. Serialize with .tolist() to 2D nested number array for JSON transport.
+  - <a id="%24defs/HeadGazePoint/properties/heatmap"></a>**`heatmap`** *(array, required)*: 2D gaze likelihood heatmap over the scene. Runtime type: numpy.ndarray of float32, shape [image_height, image_width], values in [0, 1] probability range.
     - <a id="%24defs/HeadGazePoint/properties/heatmap/items"></a>**Items** *(array)*
       - <a id="%24defs/HeadGazePoint/properties/heatmap/items/items"></a>**Items** *(number)*
 
@@ -620,7 +620,7 @@ exported individually.
                   300,
                   400
               ],
-              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) \u2014 2D [0,1] gaze likelihood heatmap"
+              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap"
           }
       ]
   }
@@ -655,7 +655,7 @@ exported individually.
     - <a id="%24defs/SocialGazePerson/properties/head_location_xyxy/items"></a>**Items** *(integer)*
   - <a id="%24defs/SocialGazePerson/properties/gaze_point_px"></a>**`gaze_point_px`** *(array, required)*: Length must be equal to 2.
     - <a id="%24defs/SocialGazePerson/properties/gaze_point_px/items"></a>**Items** *(number)*
-  - <a id="%24defs/SocialGazePerson/properties/heatmap"></a>**`heatmap`** *(array, required)*: 2D gaze likelihood heatmap. Runtime type: numpy.ndarray of float32, shape [image_height, image_width], values in [0, 1] probability range. Serialize with .tolist() to 2D nested number array for JSON transport.
+  - <a id="%24defs/SocialGazePerson/properties/heatmap"></a>**`heatmap`** *(array, required)*: 2D gaze likelihood heatmap. Runtime type: numpy.ndarray of float32, shape [image_height, image_width], values in [0, 1] probability range.
     - <a id="%24defs/SocialGazePerson/properties/heatmap/items"></a>**Items** *(array)*
       - <a id="%24defs/SocialGazePerson/properties/heatmap/items/items"></a>**Items** *(number)*
   - <a id="%24defs/SocialGazePerson/properties/social_gaze_id"></a>**`social_gaze_id`** *(integer, required)*: Integer ID of the social gaze relation class.
@@ -677,7 +677,7 @@ exported individually.
                   800,
                   400
               ],
-              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) \u2014 2D [0,1] gaze likelihood heatmap",
+              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
               "social_gaze_id": 0,
               "social_gaze_label": "looking-at"
           },
@@ -692,7 +692,7 @@ exported individually.
                   300,
                   400
               ],
-              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) \u2014 2D [0,1] gaze likelihood heatmap",
+              "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
               "social_gaze_id": 0,
               "social_gaze_label": "looking-at"
           },
