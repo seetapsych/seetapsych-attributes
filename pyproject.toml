@@ -9,6 +9,11 @@ dependencies = [
     "pydantic>=2.13.3",
 ]
 
+[project.urls]
+Homepage = "https://github.com/seetapsych/seetapsych-attributes"
+Repository = "https://github.com/seetapsych/seetapsych-attributes"
+Issues = "https://github.com/seetapsych/seetapsych-attributes/issues"
+
 [project.optional-dependencies]
 dev = [
     "jsonschema2md>=1.7.0",
