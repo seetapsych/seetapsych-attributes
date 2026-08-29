@@ -29,8 +29,21 @@ class SocialGazePerson(BaseModel):
             ),
         },
     )
-    social_gaze_id: int = Field(..., description="Integer ID of the social gaze relation class.")
-    social_gaze_label: str = Field(..., description="Human-readable label of the social gaze relation (e.g. looking-at, mutual, avert).")
+    social_gaze_id: int = Field(
+        ...,
+        description=(
+            "Integer class ID of the social gaze relation. "
+            "Ordered mapping: 0=share, 1=mutual, 2=single, 3=miss, 4=void."
+        ),
+    )
+    social_gaze_label: str = Field(
+        ...,
+        description=(
+            "Human-readable social gaze relation label. "
+            "Possible values: share, mutual, single, miss, void. "
+            "Index of the value matches social_gaze_id."
+        ),
+    )
 
 
 class HeadSocialGaze(BaseModel):
@@ -45,7 +58,7 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/social_gaze",
         json_schema_extra={
-            "description": "Dyadic social gaze relations (looking-at, mutual, avert) between two detected people.",
+            "description": "Dyadic social gaze relations between two detected people. Class set: share, mutual, single, miss, void.",
             "examples": [{
                 "head_social_gaze": {
                     "success": True,
@@ -53,15 +66,15 @@ class Report(BaseModel):
                         "head_location_xyxy": [100, 200, 300, 400],
                         "gaze_point_px": [800.0, 300.0],
                         "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-                        "social_gaze_id": 0,
-                        "social_gaze_label": "looking-at",
+                        "social_gaze_id": 1,
+                        "social_gaze_label": "mutual",
                     },
                     "associate": {
                         "head_location_xyxy": [600, 200, 800, 400],
                         "gaze_point_px": [200.0, 300.0],
                         "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-                        "social_gaze_id": 0,
-                        "social_gaze_label": "looking-at",
+                        "social_gaze_id": 1,
+                        "social_gaze_label": "mutual",
                     },
                 }
             }, {

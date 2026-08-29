@@ -79,7 +79,7 @@ exported individually.
 - [head/detection](#headdetection) Multi-person head bounding box detection results.
 - [head/selection](#headselection) Top-N head selection result (count + original indices), reordering head_detection.
 - [head/gaze_point](#headgaze_point) Per-head 2D scene gaze target point with associated likelihood heatmap.
-- [head/social_gaze](#headsocial_gaze) Dyadic social gaze relations (looking-at, mutual, avert) between two detected people.
+- [head/social_gaze](#headsocial_gaze) Dyadic social gaze relations between two detected people. Class set: share, mutual, single, miss, void.
 
 <a id="facedetection"></a>
 
@@ -632,7 +632,7 @@ exported individually.
 
 ## head/social_gaze
 
-*Dyadic social gaze relations (looking-at, mutual, avert) between two detected people.*
+*Dyadic social gaze relations between two detected people. Class set: share, mutual, single, miss, void.*
 
 ### Properties
 
@@ -658,8 +658,8 @@ exported individually.
   - <a id="%24defs/SocialGazePerson/properties/heatmap"></a>**`heatmap`** *(array, required)*: 2D gaze likelihood heatmap. Runtime type: numpy.ndarray of float32, shape [image_height, image_width], values in [0, 1] probability range.
     - <a id="%24defs/SocialGazePerson/properties/heatmap/items"></a>**Items** *(array)*
       - <a id="%24defs/SocialGazePerson/properties/heatmap/items/items"></a>**Items** *(number)*
-  - <a id="%24defs/SocialGazePerson/properties/social_gaze_id"></a>**`social_gaze_id`** *(integer, required)*: Integer ID of the social gaze relation class.
-  - <a id="%24defs/SocialGazePerson/properties/social_gaze_label"></a>**`social_gaze_label`** *(string, required)*: Human-readable label of the social gaze relation (e.g. looking-at, mutual, avert).
+  - <a id="%24defs/SocialGazePerson/properties/social_gaze_id"></a>**`social_gaze_id`** *(integer, required)*: Integer class ID of the social gaze relation. Ordered mapping: 0=share, 1=mutual, 2=single, 3=miss, 4=void.
+  - <a id="%24defs/SocialGazePerson/properties/social_gaze_label"></a>**`social_gaze_label`** *(string, required)*: Human-readable social gaze relation label. Possible values: share, mutual, single, miss, void. Index of the value matches social_gaze_id.
 
 ### Examples
 
@@ -678,8 +678,8 @@ exported individually.
                   400
               ],
               "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-              "social_gaze_id": 0,
-              "social_gaze_label": "looking-at"
+              "social_gaze_id": 1,
+              "social_gaze_label": "mutual"
           },
           "principal": {
               "gaze_point_px": [
@@ -693,8 +693,8 @@ exported individually.
                   400
               ],
               "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-              "social_gaze_id": 0,
-              "social_gaze_label": "looking-at"
+              "social_gaze_id": 1,
+              "social_gaze_label": "mutual"
           },
           "success": true
       }

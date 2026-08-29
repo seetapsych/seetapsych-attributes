@@ -62,9 +62,11 @@ class SocialGazePerson(TypedDict):
     # 2D gaze likelihood heatmap. numpy.ndarray of float32,
     # shape [image_height, image_width], values in [0, 1] probability range.
     heatmap: 'numpy.ndarray'
-    # integer class ID of the social gaze relation
+    # integer class ID of the social gaze relation.
+    # ordered mapping: 0=share, 1=mutual, 2=single, 3=miss, 4=void.
     social_gaze_id: int
-    # human-readable label: e.g. looking-at, mutual, avert
+    # human-readable social gaze label. possible values (index matches social_gaze_id):
+    # share, mutual, single, miss, void.
     social_gaze_label: str
 
 
