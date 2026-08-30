@@ -2,10 +2,10 @@
 
 from typing import Annotated, Any
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -24,9 +24,7 @@ class HeadGazePoint(BaseModel):
         json_schema_extra={
             "type": "array",
             "items": {"type": "array", "items": {"type": "number"}},
-            "example_description": (
-                "numpy.ndarray(shape=[H, W], dtype=float32)"
-            ),
+            "example_description": ("numpy.ndarray(shape=[H, W], dtype=float32)"),
         },
     )
 
@@ -37,15 +35,19 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/gaze_point",
         json_schema_extra={
-            "description": "Per-head 2D scene gaze target point with associated likelihood heatmap.",
-            "examples": [{
-                "head_gaze_point": [
-                    {
-                        "head_location_xyxy": [100, 200, 300, 400],
-                        "gaze_point_px": [640.0, 360.0],
-                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-                    }
-                ]
-            }]
-        }
+            "description": ("Per-head 2D scene gaze target point with associated likelihood heatmap."),
+            "examples": [
+                {
+                    "head_gaze_point": [
+                        {
+                            "head_location_xyxy": [100, 200, 300, 400],
+                            "gaze_point_px": [640.0, 360.0],
+                            "heatmap": (
+                                "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap"
+                            ),
+                        }
+                    ]
+                }
+            ],
+        },
     )

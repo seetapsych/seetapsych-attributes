@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
 class DimensionalAffect(BaseModel):
-    valence: float = Field(..., description="Valence dimension in continuous affect space. Positive = pleasant, negative = unpleasant.")
-    arousal: float = Field(..., description="Arousal dimension in continuous affect space. Positive = activated, negative = calm.")
+    valence: float = Field(
+        ...,
+        description=("Valence dimension in continuous affect space. Positive = pleasant, negative = unpleasant."),
+    )
+    arousal: float = Field(
+        ...,
+        description=("Arousal dimension in continuous affect space. Positive = activated, negative = calm."),
+    )
 
 
 class Report(BaseModel):
@@ -18,14 +24,18 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/dimensional_affect",
         json_schema_extra={
-            "description": "Continuous valence-arousal affect dimensions alongside discrete expressions and Action Units.",
-            "examples": [{
-                "face_dimensional_affect": [
-                    {
-                        "valence": 0.85,
-                        "arousal": 0.32,
-                    }
-                ]
-            }]
-        }
+            "description": (
+                "Continuous valence-arousal affect dimensions alongside discrete expressions and Action Units."
+            ),
+            "examples": [
+                {
+                    "face_dimensional_affect": [
+                        {
+                            "valence": 0.85,
+                            "arousal": 0.32,
+                        }
+                    ]
+                }
+            ],
+        },
     )

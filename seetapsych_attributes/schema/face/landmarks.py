@@ -2,11 +2,10 @@
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
-
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -20,13 +19,17 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/landmarks",
         json_schema_extra={
-            "description": "Facial landmarks for basic alignment: L-eye, R-eye, nose, L-mouth, R-mouth (10 interleaved floats).",
-            "examples": [{
-                "face_landmarks": [
-                    {
-                        "landmarks": [100, 100, 200, 200, 300, 300, 400, 400, 500, 500],
-                    }
-                ]
-            }]
-        }
+            "description": (
+                "Facial landmarks for basic alignment: L-eye, R-eye, nose, L-mouth, R-mouth (10 interleaved floats)."
+            ),
+            "examples": [
+                {
+                    "face_landmarks": [
+                        {
+                            "landmarks": [100, 100, 200, 200, 300, 300, 400, 400, 500, 500],
+                        }
+                    ]
+                }
+            ],
+        },
     )

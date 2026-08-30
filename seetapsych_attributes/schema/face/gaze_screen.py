@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from typing import Annotated, Optional
+from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -31,22 +31,24 @@ class Report(BaseModel):
         title="face/gaze_screen",
         json_schema_extra={
             "description": "Per-eye screen-space gaze coordinates and camera-space gaze vectors.",
-            "examples": [{
-                "face_gaze_screen": [
-                    {
-                        "gaze": {
-                            "success": True,
-                            "gaze_screen_px": {
-                                "left_eye": [960.0, 540.0],
-                                "right_eye": [960.0, 540.0],
-                            },
-                            "gaze_cm": {
-                                "left_eye": [15.5, 5.0, 2.5],
-                                "right_eye": [15.5, 5.0, 2.5],
-                            },
+            "examples": [
+                {
+                    "face_gaze_screen": [
+                        {
+                            "gaze": {
+                                "success": True,
+                                "gaze_screen_px": {
+                                    "left_eye": [960.0, 540.0],
+                                    "right_eye": [960.0, 540.0],
+                                },
+                                "gaze_cm": {
+                                    "left_eye": [15.5, 5.0, 2.5],
+                                    "right_eye": [15.5, 5.0, 2.5],
+                                },
+                            }
                         }
-                    }
-                ]
-            }]
-        }
+                    ]
+                }
+            ],
+        },
     )

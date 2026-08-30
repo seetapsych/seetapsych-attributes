@@ -2,10 +2,10 @@
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -20,12 +20,14 @@ class Report(BaseModel):
         title="face/mesh",
         json_schema_extra={
             "description": "468-point 3D face mesh landmarks in normalized coordinates.",
-            "examples": [{
-                "face_mesh": [
-                    {
-                        "normalized_3d_landmarks": [0.5] * 1404,
-                    }
-                ]
-            }]
-        }
+            "examples": [
+                {
+                    "face_mesh": [
+                        {
+                            "normalized_3d_landmarks": [0.5] * 1404,
+                        }
+                    ]
+                }
+            ],
+        },
     )

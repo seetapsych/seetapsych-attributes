@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from typing import TypedDict
+from typing import TYPE_CHECKING, TypedDict
+
+if TYPE_CHECKING:
+    import numpy  # type: ignore[import-not-found]
 
 
 __all__ = [
-    'HeadBBox',
-    'HeadDetection',
-    'HeadSelection',
-    'HeadGazePoint',
-    'HeadGazePointList',
-    'SocialGazePerson',
-    'HeadSocialGaze',
+    "HeadBBox",
+    "HeadDetection",
+    "HeadSelection",
+    "HeadGazePoint",
+    "HeadGazePointList",
+    "SocialGazePerson",
+    "HeadSocialGaze",
 ]
 
 
@@ -45,7 +48,7 @@ class HeadGazePoint(TypedDict):
     gaze_point_px: list[float]
     # 2D gaze likelihood heatmap over the scene. numpy.ndarray of float32,
     # shape [image_height, image_width], values in [0, 1] probability range.
-    heatmap: 'numpy.ndarray'
+    heatmap: "numpy.ndarray"
 
 
 # List of per-head scene gaze results.
@@ -61,7 +64,7 @@ class SocialGazePerson(TypedDict):
     gaze_point_px: list[float]
     # 2D gaze likelihood heatmap. numpy.ndarray of float32,
     # shape [image_height, image_width], values in [0, 1] probability range.
-    heatmap: 'numpy.ndarray'
+    heatmap: "numpy.ndarray"
     # integer class ID of the social gaze relation.
     # ordered mapping: 0=share, 1=mutual, 2=single, 3=miss, 4=void.
     social_gaze_id: int

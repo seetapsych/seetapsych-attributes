@@ -2,17 +2,21 @@
 
 from typing import Optional
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
 class HeartRate(BaseModel):
     fps: float = Field(..., description="Current estimated frames per second.")
-    wait_seconds: float = Field(..., description="Seconds remaining until enough data is buffered. 0.0 when HR is ready.")
-    hr_bpm: Optional[float] = Field(None, description="Estimated heart rate in beats per minute. Present only when ready.")
+    wait_seconds: float = Field(
+        ..., description="Seconds remaining until enough data is buffered. 0.0 when HR is ready."
+    )
+    hr_bpm: Optional[float] = Field(
+        None, description="Estimated heart rate in beats per minute. Present only when ready."
+    )
 
 
 class Report(BaseModel):
@@ -22,17 +26,20 @@ class Report(BaseModel):
         title="face/heart_rate",
         json_schema_extra={
             "description": "Heart rate (BPM) estimated from buffered face video frames.",
-            "examples": [{
-                "face_heart_rate": {
-                    "fps": 30.0,
-                    "wait_seconds": 0.0,
-                    "hr_bpm": 72.5,
-                }
-            }, {
-                "face_heart_rate": {
-                    "fps": 30.0,
-                    "wait_seconds": 5.2,
-                }
-            }]
-        }
+            "examples": [
+                {
+                    "face_heart_rate": {
+                        "fps": 30.0,
+                        "wait_seconds": 0.0,
+                        "hr_bpm": 72.5,
+                    }
+                },
+                {
+                    "face_heart_rate": {
+                        "fps": 30.0,
+                        "wait_seconds": 5.2,
+                    }
+                },
+            ],
+        },
     )

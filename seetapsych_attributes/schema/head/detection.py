@@ -2,10 +2,10 @@
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -21,13 +21,15 @@ class Report(BaseModel):
         title="head/detection",
         json_schema_extra={
             "description": "Multi-person head bounding box detection results.",
-            "examples": [{
-                "head_detection": [
-                    {
-                        "xyxy": [100, 200, 300, 400],
-                        "score": 0.85,
-                    }
-                ]
-            }]
-        }
+            "examples": [
+                {
+                    "head_detection": [
+                        {
+                            "xyxy": [100, 200, 300, 400],
+                            "score": 0.85,
+                        }
+                    ]
+                }
+            ],
+        },
     )

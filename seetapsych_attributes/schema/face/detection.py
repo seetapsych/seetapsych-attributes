@@ -2,10 +2,10 @@
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -21,13 +21,6 @@ class Report(BaseModel):
         title="face/detection",
         json_schema_extra={
             "description": "Face detection results as rectangular bounding boxes.",
-            "examples": [{
-                "face_detection": [
-                    {
-                        "xyxy": [100, 200, 300, 400],
-                        "score": 0.5
-                    }
-                ]
-            }]
-        }
+            "examples": [{"face_detection": [{"xyxy": [100, 200, 300, 400], "score": 0.5}]}],
+        },
     )

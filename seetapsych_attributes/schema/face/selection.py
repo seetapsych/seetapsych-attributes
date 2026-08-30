@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -22,17 +21,14 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/selection",
         json_schema_extra={
-            "description": "Selected face PID. Selected face order is reflected in face/detection and face/landmarks.",
-            "examples": [{
-                "face_selection": {
-                    "pid": 1
-                },
-                "face_detection": [
-                    {
-                        "xyxy": [100, 200, 300, 400],
-                        "score": 0.5
-                    }
-                ]
-            }]
-        }
+            "description": (
+                "Selected face PID. Selected face order is reflected in face/detection and face/landmarks."
+            ),
+            "examples": [
+                {
+                    "face_selection": {"pid": 1},
+                    "face_detection": [{"xyxy": [100, 200, 300, 400], "score": 0.5}],
+                }
+            ],
+        },
     )

@@ -2,10 +2,10 @@
 
 from typing import Annotated, Any, Optional
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
-    'Report',
+    "Report",
 ]
 
 
@@ -24,9 +24,7 @@ class SocialGazePerson(BaseModel):
         json_schema_extra={
             "type": "array",
             "items": {"type": "array", "items": {"type": "number"}},
-            "example_description": (
-                "numpy.ndarray(shape=[H, W], dtype=float32)"
-            ),
+            "example_description": ("numpy.ndarray(shape=[H, W], dtype=float32)"),
         },
     )
     social_gaze_id: int = Field(
@@ -48,7 +46,9 @@ class SocialGazePerson(BaseModel):
 
 class HeadSocialGaze(BaseModel):
     principal: Optional[SocialGazePerson] = Field(None, description="Left-side / primary person in dyadic interaction.")
-    associate: Optional[SocialGazePerson] = Field(None, description="Right-side / secondary person in dyadic interaction.")
+    associate: Optional[SocialGazePerson] = Field(
+        None, description="Right-side / secondary person in dyadic interaction."
+    )
     success: bool = Field(True, description="Whether at least two heads were detected for social gaze inference.")
 
 
@@ -58,29 +58,39 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="head/social_gaze",
         json_schema_extra={
-            "description": "Dyadic social gaze relations between two detected people. Class set: share, mutual, single, miss, void.",
-            "examples": [{
-                "head_social_gaze": {
-                    "success": True,
-                    "principal": {
-                        "head_location_xyxy": [100, 200, 300, 400],
-                        "gaze_point_px": [800.0, 300.0],
-                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-                        "social_gaze_id": 1,
-                        "social_gaze_label": "mutual",
-                    },
-                    "associate": {
-                        "head_location_xyxy": [600, 200, 800, 400],
-                        "gaze_point_px": [200.0, 300.0],
-                        "heatmap": "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap",
-                        "social_gaze_id": 1,
-                        "social_gaze_label": "mutual",
-                    },
-                }
-            }, {
-                "head_social_gaze": {
-                    "success": False,
-                }
-            }]
-        }
+            "description": (
+                "Dyadic social gaze relations between two detected people. "
+                "Class set: share, mutual, single, miss, void."
+            ),
+            "examples": [
+                {
+                    "head_social_gaze": {
+                        "success": True,
+                        "principal": {
+                            "head_location_xyxy": [100, 200, 300, 400],
+                            "gaze_point_px": [800.0, 300.0],
+                            "heatmap": (
+                                "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap"
+                            ),
+                            "social_gaze_id": 1,
+                            "social_gaze_label": "mutual",
+                        },
+                        "associate": {
+                            "head_location_xyxy": [600, 200, 800, 400],
+                            "gaze_point_px": [200.0, 300.0],
+                            "heatmap": (
+                                "numpy.ndarray(shape=[H, W], dtype=float32) -- 2D [0,1] gaze likelihood heatmap"
+                            ),
+                            "social_gaze_id": 1,
+                            "social_gaze_label": "mutual",
+                        },
+                    }
+                },
+                {
+                    "head_social_gaze": {
+                        "success": False,
+                    }
+                },
+            ],
+        },
     )

@@ -15,7 +15,6 @@ Alongside the JSON schemas documented below, this project ships a set of ready-t
 provide auto-completions and static type checks directly on the runner's `report` dict:
 
 ```python
-
 # -*- coding: utf-8 -*-
 import json
 
@@ -32,29 +31,27 @@ def main():
     factory = Factory()
     factory.load_builtin_modules()
 
-    pipeline = Pipeline(factory, attributes=['face/detection'])
+    pipeline = Pipeline(factory, attributes=["face/detection"])
     pipeline.solve()
     pipeline.install_requirements()
     pipeline.cache_models()
 
     runner = Runner(pipeline)
 
-    report: Report = runner.run(data={
-        'default': cv2.imread('data/a.jpg')
-    })
+    report: Report = runner.run(data={"default": cv2.imread("data/a.jpg")})
 
     # IDE autocompletion + type inference for every attribute key:
-    detections: FaceDetection | None = report.get('face_detection')
+    detections: FaceDetection | None = report.get("face_detection")
     if detections:
         first: BBox = detections[0]
-        x1, y1, x2, y2 = first['xyxy']
-        score: float = first['score']
+        x1, y1, x2, y2 = first["xyxy"]
+        score: float = first["score"]
         print(f"face at ({x1},{y1})-({x2},{y2}), score = {score:.3f}")
 
     print(json.dumps(report, indent=2, ensure_ascii=False))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 
