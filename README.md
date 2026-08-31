@@ -70,7 +70,7 @@ exported individually.
 - [face/expression](#faceexpression) Indicate the confidence level of each expression.
 - [face/dense_landmarks](#facedense_landmarks) 280-point dense facial landmarks (560 interleaved [x,y] floats).
 - [face/mesh](#facemesh) 468-point 3D face mesh landmarks in normalized coordinates.
-- [face/gaze_screen](#facegaze_screen) Per-eye screen-space gaze coordinates and camera-space gaze vectors.
+- [face/gaze_screen](#facegaze_screen) Per-eye screen-space point-of-gaze coordinates in pixels and camera-space point-of-gaze coordinates in millimeters. Camera-space coordinates may be 2D or 3D depending on the algorithm; origin is at the camera center.
 - [face/heart_rate](#faceheart_rate) Heart rate (BPM) estimated from buffered face video frames.
 - [face/dimensional_affect](#facedimensional_affect) Continuous valence-arousal affect dimensions alongside discrete expressions and Action Units.
 - [head/detection](#headdetection) Multi-person head bounding box detection results.
@@ -210,22 +210,70 @@ exported individually.
 ### Definitions
 
 - <a id="defs-ActionUnits"></a>**`ActionUnits`** *(object)*
-  - <a id="%24defs/ActionUnits/properties/AU1"></a>**`AU1`** *(number)*: `[0, 1]`. Inner Brow Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU2"></a>**`AU2`** *(number)*: `[0, 1]`. Outer Brow Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU4"></a>**`AU4`** *(number)*: `[0, 1]`. Brow Lowerer. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU5"></a>**`AU5`** *(number)*: `[0, 1]`. Upper Lid Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU6"></a>**`AU6`** *(number)*: `[0, 1]`. Cheek Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU7"></a>**`AU7`** *(number)*: `[0, 1]`. Lid Tightener. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU9"></a>**`AU9`** *(number)*: `[0, 1]`. Nose Wrinkler. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU10"></a>**`AU10`** *(number)*: `[0, 1]`. Upper Lip Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU12"></a>**`AU12`** *(number)*: `[0, 1]`. Lip Corner Puller. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU15"></a>**`AU15`** *(number)*: `[0, 1]`. Lip Corner Depressor. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU17"></a>**`AU17`** *(number)*: `[0, 1]`. Chin Raiser. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU20"></a>**`AU20`** *(number)*: `[0, 1]`. Lip Stretcher. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU23"></a>**`AU23`** *(number)*: `[0, 1]`. Lip Tightener. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU24"></a>**`AU24`** *(number)*: `[0, 1]`. Lip Pressor. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU25"></a>**`AU25`** *(number)*: `[0, 1]`. Lips Part. Default: `null`.
-  - <a id="%24defs/ActionUnits/properties/AU26"></a>**`AU26`** *(number)*: `[0, 1]`. Jaw Drop. Default: `null`.
+  - <a id="%24defs/ActionUnits/properties/AU1"></a>**`AU1`**: `[0, 1]`. Inner Brow Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU1/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU1/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU2"></a>**`AU2`**: `[0, 1]`. Outer Brow Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU2/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU2/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU4"></a>**`AU4`**: `[0, 1]`. Brow Lowerer. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU4/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU4/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU5"></a>**`AU5`**: `[0, 1]`. Upper Lid Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU5/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU5/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU6"></a>**`AU6`**: `[0, 1]`. Cheek Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU6/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU6/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU7"></a>**`AU7`**: `[0, 1]`. Lid Tightener. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU7/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU7/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU9"></a>**`AU9`**: `[0, 1]`. Nose Wrinkler. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU9/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU9/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU10"></a>**`AU10`**: `[0, 1]`. Upper Lip Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU10/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU10/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU12"></a>**`AU12`**: `[0, 1]`. Lip Corner Puller. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU12/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU12/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU15"></a>**`AU15`**: `[0, 1]`. Lip Corner Depressor. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU15/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU15/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU17"></a>**`AU17`**: `[0, 1]`. Chin Raiser. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU17/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU17/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU20"></a>**`AU20`**: `[0, 1]`. Lip Stretcher. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU20/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU20/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU23"></a>**`AU23`**: `[0, 1]`. Lip Tightener. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU23/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU23/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU24"></a>**`AU24`**: `[0, 1]`. Lip Pressor. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU24/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU24/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU25"></a>**`AU25`**: `[0, 1]`. Lips Part. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU25/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU25/anyOf/1"></a>*null*
+  - <a id="%24defs/ActionUnits/properties/AU26"></a>**`AU26`**: `[0, 1]`. Jaw Drop. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/ActionUnits/properties/AU26/anyOf/0"></a>*number*
+      - <a id="%24defs/ActionUnits/properties/AU26/anyOf/1"></a>*null*
 
 ### Examples
 
@@ -270,13 +318,34 @@ exported individually.
 ### Definitions
 
 - <a id="defs-Expression"></a>**`Expression`** *(object)*
-  - <a id="%24defs/Expression/properties/neutral"></a>**`neutral`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/anger"></a>**`anger`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/disgust"></a>**`disgust`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/fear"></a>**`fear`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/happy"></a>**`happy`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/sad"></a>**`sad`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
-  - <a id="%24defs/Expression/properties/surprise"></a>**`surprise`** *(number)*: Confidence in `[0, 1]`. Default: `null`.
+  - <a id="%24defs/Expression/properties/neutral"></a>**`neutral`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/neutral/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/neutral/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/anger"></a>**`anger`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/anger/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/anger/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/disgust"></a>**`disgust`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/disgust/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/disgust/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/fear"></a>**`fear`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/fear/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/fear/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/happy"></a>**`happy`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/happy/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/happy/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/sad"></a>**`sad`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/sad/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/sad/anyOf/1"></a>*null*
+  - <a id="%24defs/Expression/properties/surprise"></a>**`surprise`**: Confidence in `[0, 1]`. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/Expression/properties/surprise/anyOf/0"></a>*number*
+      - <a id="%24defs/Expression/properties/surprise/anyOf/1"></a>*null*
 
 ### Examples
 
@@ -364,7 +433,7 @@ exported individually.
 
 ## face/gaze_screen
 
-*Per-eye screen-space gaze coordinates and camera-space gaze vectors.*
+*Per-eye screen-space point-of-gaze coordinates in pixels and camera-space point-of-gaze coordinates in millimeters. Camera-space coordinates may be 2D or 3D depending on the algorithm; origin is at the camera center.*
 
 ### Properties
 
@@ -376,7 +445,7 @@ exported individually.
 - <a id="defs-GazeData"></a>**`GazeData`** *(object)*
   - <a id="%24defs/GazeData/properties/success"></a>**`success`** *(boolean, required)*
   - <a id="%24defs/GazeData/properties/gaze_screen_px"></a>**`gaze_screen_px`** *(required)*: Refer to *[GazePoint](#defs-GazePoint)*.
-  - <a id="%24defs/GazeData/properties/gaze_cm"></a>**`gaze_cm`** *(required)*: Refer to *[GazePoint](#defs-GazePoint)*.
+  - <a id="%24defs/GazeData/properties/gaze_camera_mm"></a>**`gaze_camera_mm`** *(required)*: Refer to *[GazePoint](#defs-GazePoint)*.
 - <a id="defs-GazePoint"></a>**`GazePoint`** *(object)*
   - <a id="%24defs/GazePoint/properties/left_eye"></a>**`left_eye`** *(array, required)*: Length must be between 0 and 3 (inclusive).
     - <a id="%24defs/GazePoint/properties/left_eye/items"></a>**Items** *(number)*
@@ -392,16 +461,16 @@ exported individually.
       "face_gaze_screen": [
           {
               "gaze": {
-                  "gaze_cm": {
+                  "gaze_camera_mm": {
                       "left_eye": [
-                          15.5,
-                          5.0,
-                          2.5
+                          155.0,
+                          50.0,
+                          25.0
                       ],
                       "right_eye": [
-                          15.5,
-                          5.0,
-                          2.5
+                          155.0,
+                          50.0,
+                          25.0
                       ]
                   },
                   "gaze_screen_px": {

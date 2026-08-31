@@ -150,9 +150,9 @@ FaceMesh = list[MeshLandmarks]
 
 
 class GazePoint(TypedDict):
-    """Per-eye gaze point in either screen-pixel or camera-centimeter space."""
+    """Per-eye point-of-gaze coordinates in either screen-pixel or camera-millimeter space."""
 
-    # screen-px [x,y] or camera-cm [x,y,z]; empty list if unavailable
+    # screen-px [x,y] or camera-mm [x,y(,z)]; 2D or 3D depending on algorithm; empty list if unavailable
     left_eye: list[float]
     # same format as left_eye
     right_eye: list[float]
@@ -163,10 +163,11 @@ class GazeData(TypedDict):
 
     # whether gaze estimation succeeded for this face
     success: bool
-    # per-eye screen-space gaze coordinates in pixels
+    # per-eye point-of-gaze coordinates in screen-space pixels
     gaze_screen_px: GazePoint
-    # per-eye camera-space gaze direction vectors in centimeters
-    gaze_cm: GazePoint
+    # per-eye point-of-gaze coordinates in camera-space millimeters;
+    # may be 2D or 3D depending on algorithm; origin is at the camera center
+    gaze_camera_mm: GazePoint
 
 
 class GazeScreen(TypedDict):

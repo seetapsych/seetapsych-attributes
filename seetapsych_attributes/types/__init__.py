@@ -94,7 +94,7 @@ class Report(TypedDict, total=False):
     face_dense_landmarks: FaceDenseLandmarks
     # per-face 468-point 3D mesh (1404 normalized floats)
     face_mesh: FaceMesh
-    # per-face per-eye screen-space + camera-space gaze vectors
+    # per-face per-eye screen-space + camera-space point-of-gaze coordinates
     face_gaze_screen: FaceGazeScreen
     # heart rate in BPM, present when buffered
     face_heart_rate: FaceHeartRate

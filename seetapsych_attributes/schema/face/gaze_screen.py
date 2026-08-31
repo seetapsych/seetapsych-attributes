@@ -17,7 +17,7 @@ class GazePoint(BaseModel):
 class GazeData(BaseModel):
     success: bool
     gaze_screen_px: GazePoint
-    gaze_cm: GazePoint
+    gaze_camera_mm: GazePoint
 
 
 class GazeScreen(BaseModel):
@@ -30,7 +30,12 @@ class Report(BaseModel):
     model_config = ConfigDict(
         title="face/gaze_screen",
         json_schema_extra={
-            "description": "Per-eye screen-space gaze coordinates and camera-space gaze vectors.",
+            "description": (
+                "Per-eye screen-space point-of-gaze coordinates in pixels "
+                "and camera-space point-of-gaze coordinates in millimeters. "
+                "Camera-space coordinates may be 2D or 3D depending on the algorithm; "
+                "origin is at the camera center."
+            ),
             "examples": [
                 {
                     "face_gaze_screen": [
@@ -41,9 +46,9 @@ class Report(BaseModel):
                                     "left_eye": [960.0, 540.0],
                                     "right_eye": [960.0, 540.0],
                                 },
-                                "gaze_cm": {
-                                    "left_eye": [15.5, 5.0, 2.5],
-                                    "right_eye": [15.5, 5.0, 2.5],
+                                "gaze_camera_mm": {
+                                    "left_eye": [155.0, 50.0, 25.0],
+                                    "right_eye": [155.0, 50.0, 25.0],
                                 },
                             }
                         }
