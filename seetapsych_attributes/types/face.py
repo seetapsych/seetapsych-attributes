@@ -150,28 +150,28 @@ FaceMesh = list[MeshLandmarks]
 
 
 class GazePoint(TypedDict):
-    """Per-eye point-of-gaze coordinates in either screen-pixel or camera-millimeter space."""
+    """Point-of-gaze coordinates for two eyes in either screen-pixel or camera-millimeter space."""
 
-    # screen-px [x,y] or camera-mm [x,y(,z)]; 2D or 3D depending on algorithm; empty list if unavailable
+    # gaze-screen-px [x,y] or gaze-camera-mm [x,y(,z)]; 2D/3D depending on algorithm; empty if unavailable
     left_eye: list[float]
-    # same format as left_eye
+    # screen-px [x,y] or camera-mm [x,y(,z)]; 2D/3D depending on algorithm; empty if unavailable
     right_eye: list[float]
 
 
 class GazeData(TypedDict):
-    """Complete gaze estimation bundle for a single detected face."""
+    """Gaze estimation result for a single face."""
 
     # whether gaze estimation succeeded for this face
     success: bool
-    # per-eye point-of-gaze coordinates in screen-space pixels
+    # per-eye point-of-gaze in screen-space pixels; origin at left top corner of the screen
     gaze_screen_px: GazePoint
-    # per-eye point-of-gaze coordinates in camera-space millimeters;
-    # may be 2D or 3D depending on algorithm; origin is at the camera center
+    # per-eye point-of-gaze in camera-space millimeters; origin at camera optical center;
+    # 2D on image plane or 3D in camera space depending on algorithm
     gaze_camera_mm: GazePoint
 
 
 class GazeScreen(TypedDict):
-    """Wrapper carrying one face's gaze result entry in the per-face list."""
+    """Wrapper for per-face gaze data in face/gaze_screen schema."""
 
     # per-face gaze estimation payload
     gaze: GazeData

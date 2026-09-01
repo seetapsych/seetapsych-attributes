@@ -442,17 +442,35 @@ exported individually.
 
 ### Definitions
 
-- <a id="defs-GazeData"></a>**`GazeData`** *(object)*
-  - <a id="%24defs/GazeData/properties/success"></a>**`success`** *(boolean, required)*
-  - <a id="%24defs/GazeData/properties/gaze_screen_px"></a>**`gaze_screen_px`** *(required)*: Refer to *[GazePoint](#defs-GazePoint)*.
-  - <a id="%24defs/GazeData/properties/gaze_camera_mm"></a>**`gaze_camera_mm`** *(required)*: Refer to *[GazePoint](#defs-GazePoint)*.
-- <a id="defs-GazePoint"></a>**`GazePoint`** *(object)*
-  - <a id="%24defs/GazePoint/properties/left_eye"></a>**`left_eye`** *(array, required)*: Length must be between 0 and 3 (inclusive).
+- <a id="defs-GazeData"></a>**`GazeData`** *(object)*: Gaze estimation result for a single face.
+  - <a id="%24defs/GazeData/properties/success"></a>**`success`** *(boolean, required)*: Whether gaze estimation succeeded for this face.
+  - <a id="%24defs/GazeData/properties/gaze_screen_px"></a>**`gaze_screen_px`** *(required)*: Per-eye point-of-gaze coordinates in screen-space pixels. The origin is at the left top corner of the screen. The coordinate system is shown as [Fig. 1](#facegaze_screen-figure-1). Refer to *[GazePoint](#defs-GazePoint)*.
+  - <a id="%24defs/GazeData/properties/gaze_camera_mm"></a>**`gaze_camera_mm`** *(required)*: Per-eye point-of-gaze coordinates in the camera coordinate system, measured in millimeters. The coordinate origin is located at the camera optical center. Depending on the gaze estimation algorithm, the point-of-gaze can be represented either as a 2D coordinate on the camera image plane or as a 3D point in camera space. The coordinate definitions for 2D and 3D gaze_camera_mm are illustrated in [Fig. 2](#facegaze_screen-figure-2) and [Fig. 3](#facegaze_screen-figure-3), respectively. Different algorithms may natively output in different coordinate frames; all values are normalized to the conventions documented here before being returned. Refer to *[GazePoint](#defs-GazePoint)*.
+- <a id="defs-GazePoint"></a>**`GazePoint`** *(object)*: Point-of-gaze coordinates for two eyes in either screen-pixel or camera-millimeter space.
+  - <a id="%24defs/GazePoint/properties/left_eye"></a>**`left_eye`** *(array, required)*: Gaze-screen-px [x,y] or gaze-camera-mm [x,y(,z)]; 2D or 3D depending on algorithm; empty list if unavailable. Length must be between 0 and 3 (inclusive).
     - <a id="%24defs/GazePoint/properties/left_eye/items"></a>**Items** *(number)*
-  - <a id="%24defs/GazePoint/properties/right_eye"></a>**`right_eye`** *(array, required)*: Length must be between 0 and 3 (inclusive).
+  - <a id="%24defs/GazePoint/properties/right_eye"></a>**`right_eye`** *(array, required)*: Screen-px [x,y] or camera-mm [x,y(,z)]; 2D or 3D depending on algorithm; empty list if unavailable. Length must be between 0 and 3 (inclusive).
     - <a id="%24defs/GazePoint/properties/right_eye/items"></a>**Items** *(number)*
-- <a id="defs-GazeScreen"></a>**`GazeScreen`** *(object)*
+- <a id="defs-GazeScreen"></a>**`GazeScreen`** *(object)*: Wrapper for per-face gaze data in face/gaze_screen schema.
   - <a id="%24defs/GazeScreen/properties/gaze"></a>**`gaze`** *(required)*: Refer to *[GazeData](#defs-GazeData)*.
+
+<figure id="facegaze_screen-figure-1" style="text-align: center; margin: 1em 0;">
+  <a id="facegaze_screen-figure-1"></a>
+  <img src="assets/gaze_screen_px.png" alt="Coordinate system for gaze_screen_px" width="200px" />
+  <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 1. Coordinate system for <strong>gaze_screen_px</strong></figcaption>
+</figure>
+
+<figure id="facegaze_screen-figure-2" style="text-align: center; margin: 1em 0;">
+  <a id="facegaze_screen-figure-2"></a>
+  <img src="assets/gaze_camera_mm_2d.png" alt="Coordinate system for gaze_camera_mm(2D)" width="200px" />
+  <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 2. Coordinate system for <strong>gaze_camera_mm(2D)</strong></figcaption>
+</figure>
+
+<figure id="facegaze_screen-figure-3" style="text-align: center; margin: 1em 0;">
+  <a id="facegaze_screen-figure-3"></a>
+  <img src="assets/gaze_camera_mm_3d.png" alt="Coordinate system for gaze_camera_mm(3D)" width="200px" />
+  <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 3. Coordinate system for <strong>gaze_camera_mm(3D)</strong></figcaption>
+</figure>
 
 ### Examples
 

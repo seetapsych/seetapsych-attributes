@@ -106,6 +106,80 @@ def fix_markdown_links_and_anchors(text: str) -> str:
     return text
 
 
+_DEFAULT_IMG_STYLE = 'style="max-height: 360px; width: auto;"'
+_FIGURE_STYLE = 'style="text-align: center; margin: 1em 0;"'
+_FIGCAPTION_STYLE = 'style="margin-top: 0.5em; font-size: 0.9em; color: #555;"'
+
+
+def _strip_md(s: str) -> str:
+    s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)
+    s = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"\1", s)
+    s = re.sub(r"`(.+?)`", r"\1", s)
+    return s
+
+
+def _md_to_html(s: str) -> str:
+    s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+    s = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<em>\1</em>", s)
+    s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
+    return s
+
+
+def _build_img_attrs(fig: dict[str, Any]) -> str:
+    width = fig.get("width")
+    height = fig.get("height")
+    attrs: list[str] = []
+    if width is not None:
+        attrs.append(f'width="{width}"')
+    if height is not None:
+        attrs.append(f'height="{height}"')
+    if not attrs:
+        attrs.append(_DEFAULT_IMG_STYLE)
+    return " ".join(attrs)
+
+
+def _build_figures_html(tag: str, figures: list[dict[str, Any]]) -> str:
+    if not figures:
+        return ""
+    blocks: list[str] = []
+    for idx, fig in enumerate(figures, start=1):
+        anchor = f"{tag}-figure-{idx}"
+        url = fig.get("url", "")
+        raw_title = fig.get("title", "")
+        alt_title = _strip_md(raw_title)
+        caption_title = _md_to_html(raw_title)
+        img_attrs = _build_img_attrs(fig)
+        blocks.append(
+            f'<figure id="{anchor}" {_FIGURE_STYLE}>\n'
+            f'  <a id="{anchor}"></a>\n'
+            f'  <img src="{url}" alt="{alt_title}" {img_attrs} />\n'
+            f"  <figcaption {_FIGCAPTION_STYLE}>Figure {idx}. {caption_title}</figcaption>\n"
+            f"</figure>"
+        )
+    return "\n\n".join(blocks)
+
+
+def _insert_figures_before_examples(md: str, figures_html: str) -> str:
+    if not figures_html:
+        return md
+    pattern = r"(\n###\s+Examples\b)"
+    if re.search(pattern, md):
+        return re.sub(pattern, r"\n\n" + figures_html + r"\1", md, count=1)
+    return md.rstrip() + "\n\n" + figures_html + "\n"
+
+
+def _replace_figure_refs(md: str, tag: str, num_figures: int) -> str:
+    if num_figures <= 0:
+        return md
+
+    def replacer(m: re.Match[str]) -> str:
+        n = m.group(1)
+        anchor = f"{tag}-figure-{n}"
+        return f"[Fig. {n}](#{anchor})"
+
+    return re.sub(r"(?<!\[)Fig\.\s*(\d+)", replacer, md)
+
+
 def main():
     output = os.path.join(ROOT, "..", "README.md")
 
@@ -117,6 +191,7 @@ def main():
 
     for key, model in schema.items():
         spec = model.model_json_schema()
+        figures = spec.get("x-figures", []) or []
         spec = compact_examples(spec)
         md = schema2markdown(spec)
 
@@ -124,14 +199,19 @@ def main():
         md = re.sub(r"^#", r"##", md, flags=re.MULTILINE)
         tag = key.lower().replace("/", "").replace(" ", "-")
 
+        figures_html = _build_figures_html(tag, figures)
+        md = _insert_figures_before_examples(md, figures_html)
+        md = _replace_figure_refs(md, tag, len(figures))
+
         catalog.append((key, tag, brief))
         articles.append(f'<a id="{tag}"></a>\n{md}')
 
     neck = "## Catalog\n\n" + "\n".join([f"- [{k}](#{t}) {b}" for k, t, b in catalog])
 
-    content = "\n\n".join([header, neck, *articles])
-    content = fix_markdown_headers(content)
-    content = fix_markdown_links_and_anchors(content)
+    joined_articles = "\n\n".join(articles)
+    joined_articles = fix_markdown_headers(joined_articles)
+    joined_articles = fix_markdown_links_and_anchors(joined_articles)
+    content = "\n\n".join([header, neck, joined_articles])
 
     with open(output, "w", encoding="utf-8") as f:
         f.write(content)
