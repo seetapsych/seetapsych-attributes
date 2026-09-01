@@ -16,7 +16,15 @@ from seetapsych_attributes.schema import schema
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
+GITHUB_RAW_BASE = "https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/"
+
 _COMPACT_LONG_LIST_THRESHOLD = 16
+
+
+def _to_absolute_img_url(url: str) -> str:
+    if url.startswith(("http://", "https://")):
+        return url
+    return GITHUB_RAW_BASE + url.lstrip("/")
 
 
 def _compact_truncate_list(lst: list[Any]) -> str | list[Any]:
@@ -144,7 +152,7 @@ def _build_figures_html(tag: str, figures: list[dict[str, Any]]) -> str:
     blocks: list[str] = []
     for idx, fig in enumerate(figures, start=1):
         anchor = f"{tag}-figure-{idx}"
-        url = fig.get("url", "")
+        url = _to_absolute_img_url(fig.get("url", ""))
         raw_title = fig.get("title", "")
         alt_title = _strip_md(raw_title)
         caption_title = _md_to_html(raw_title)

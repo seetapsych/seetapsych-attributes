@@ -456,19 +456,19 @@ exported individually.
 
 <figure id="facegaze_screen-figure-1" style="text-align: center; margin: 1em 0;">
   <a id="facegaze_screen-figure-1"></a>
-  <img src="assets/gaze_screen_px.png" alt="Coordinate system for gaze_screen_px" width="200px" />
+  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_screen_px.png" alt="Coordinate system for gaze_screen_px" width="200px" />
   <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 1. Coordinate system for <strong>gaze_screen_px</strong></figcaption>
 </figure>
 
 <figure id="facegaze_screen-figure-2" style="text-align: center; margin: 1em 0;">
   <a id="facegaze_screen-figure-2"></a>
-  <img src="assets/gaze_camera_mm_2d.png" alt="Coordinate system for gaze_camera_mm(2D)" width="200px" />
+  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_camera_mm_2d.png" alt="Coordinate system for gaze_camera_mm(2D)" width="200px" />
   <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 2. Coordinate system for <strong>gaze_camera_mm(2D)</strong></figcaption>
 </figure>
 
 <figure id="facegaze_screen-figure-3" style="text-align: center; margin: 1em 0;">
   <a id="facegaze_screen-figure-3"></a>
-  <img src="assets/gaze_camera_mm_3d.png" alt="Coordinate system for gaze_camera_mm(3D)" width="200px" />
+  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_camera_mm_3d.png" alt="Coordinate system for gaze_camera_mm(3D)" width="200px" />
   <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #555;">Figure 3. Coordinate system for <strong>gaze_camera_mm(3D)</strong></figcaption>
 </figure>
 
