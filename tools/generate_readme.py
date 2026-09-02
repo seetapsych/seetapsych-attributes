@@ -115,8 +115,6 @@ def fix_markdown_links_and_anchors(text: str) -> str:
 
 
 _DEFAULT_IMG_STYLE = 'style="max-height: 360px; width: auto;"'
-_FIGURE_STYLE = 'style="text-align: center; margin: 1em 0;"'
-_FIGCAPTION_STYLE = 'style="margin-top: 0.5em; font-size: 0.9em; color: #555;"'
 
 
 def _strip_md(s: str) -> str:
@@ -158,11 +156,11 @@ def _build_figures_html(tag: str, figures: list[dict[str, Any]]) -> str:
         caption_title = _md_to_html(raw_title)
         img_attrs = _build_img_attrs(fig)
         blocks.append(
-            f'<figure id="{anchor}" {_FIGURE_STYLE}>\n'
+            f'<div align="center">\n'
             f'  <a id="{anchor}"></a>\n'
             f'  <img src="{url}" alt="{alt_title}" {img_attrs} />\n'
-            f"  <figcaption {_FIGCAPTION_STYLE}>Figure {idx}. {caption_title}</figcaption>\n"
-            f"</figure>"
+            f"  <p><em><strong>Figure {idx}.</strong> {caption_title}</em></p>\n"
+            f"</div>"
         )
     return "\n\n".join(blocks)
 
