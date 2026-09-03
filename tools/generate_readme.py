@@ -156,8 +156,7 @@ def _build_figures_html(tag: str, figures: list[dict[str, Any]]) -> str:
         caption_title = _md_to_html(raw_title)
         img_attrs = _build_img_attrs(fig)
         blocks.append(
-            f'<div align="center">\n'
-            f'  <a id="{anchor}"></a>\n'
+            f'<div align="center" id="{anchor}">\n'
             f'  <img src="{url}" alt="{alt_title}" {img_attrs} />\n'
             f"  <p><em><strong>Figure {idx}.</strong> {caption_title}</em></p>\n"
             f"</div>"
