@@ -12,6 +12,7 @@ schema: dict[str, type[BaseModel]] = {
     "face/action_units": face.action_units.Report,
     "face/expression": face.expression.Report,
     "face/dense_landmarks": face.dense_landmarks.Report,
+    "face/feature": face.feature.Report,
     "face/mesh": face.mesh.Report,
     "face/gaze_screen": face.gaze_screen.Report,
     "face/heart_rate": face.heart_rate.Report,

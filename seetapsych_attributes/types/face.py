@@ -25,6 +25,7 @@ __all__ = [
     "FaceHeartRate",
     "DimensionalAffect",
     "FaceDimensionalAffect",
+    "FaceFeature",
 ]
 
 
@@ -182,17 +183,19 @@ FaceGazeScreen = list[GazeScreen]
 
 
 class HeartRate(TypedDict, total=False):
-    """Heart rate estimation in BPM.
+    """Heart rate estimation from buffered face video frames.
 
-    Fields are optional until enough video frames have been buffered.
+    Always includes fps and wait_seconds; hr_bpm and roi_hr_bpm appear only when a reliable estimate is available.
     """
 
-    # estimated FPS of the incoming stream
+    # Measured frames per second of the processing stream, averaged over a recent window.
     fps: float
-    # seconds until buffer is fully populated; 0.0 means HR is ready
+    # Rough estimate of remaining seconds until the next HR update may be emitted.
     wait_seconds: float
-    # estimated BPM; present only when estimation is ready
+    # Final integrated heart-rate prediction in beats per minute.
     hr_bpm: float
+    # Per-ROI heart-rate estimates keyed by region name; some ROIs may be absent when no valid data.
+    roi_hr_bpm: dict[str, float]
 
 
 # Alias: face-level heart-rate output.
@@ -210,3 +213,8 @@ class DimensionalAffect(TypedDict):
 
 # Per-face list of continuous valence/arousal results.
 FaceDimensionalAffect = list[DimensionalAffect]
+
+
+# Per-face list of L2-normalized feature embeddings.
+# Each inner list is one face's embedding vector; dimension is algorithm-specific (typically 512 for ArcFace).
+FaceFeature = list[list[float]]

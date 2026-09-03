@@ -5,6 +5,7 @@ from . import dense_landmarks as dense_landmarks
 from . import detection as detection
 from . import dimensional_affect as dimensional_affect
 from . import expression as expression
+from . import feature as feature
 from . import gaze_screen as gaze_screen
 from . import heart_rate as heart_rate
 from . import landmarks as landmarks
@@ -17,6 +18,7 @@ __all__ = [
     "detection",
     "dimensional_affect",
     "expression",
+    "feature",
     "gaze_screen",
     "heart_rate",
     "landmarks",

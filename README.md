@@ -69,6 +69,7 @@ exported individually.
 - [face/action_units](#faceaction_units) Indicate the confidence level of each Action Unit. Not all Action Units' results may be output.
 - [face/expression](#faceexpression) Indicate the confidence level of each expression.
 - [face/dense_landmarks](#facedense_landmarks) 280-point dense facial landmarks (560 interleaved [x,y] floats).
+- [face/feature](#facefeature) Per-face L2-normalized feature embeddings for recognition, clustering, or similarity search. Each inner list corresponds to one aligned face in face/landmarks order; vector dimension is algorithm-specific (typically 512 for ArcFace).
 - [face/mesh](#facemesh) 468-point 3D face mesh landmarks in normalized coordinates.
 - [face/gaze_screen](#facegaze_screen) Per-eye screen-space point-of-gaze coordinates in pixels and camera-space point-of-gaze coordinates in millimeters. Camera-space coordinates may be 2D or 3D depending on the algorithm; origin is at the camera center.
 - [face/heart_rate](#faceheart_rate) Heart rate (BPM) estimated from buffered face video frames.
@@ -398,6 +399,43 @@ exported individually.
 
 
 
+<a id="facefeature"></a>
+
+## face/feature
+
+*Per-face L2-normalized feature embeddings for recognition, clustering, or similarity search. Each inner list corresponds to one aligned face in face/landmarks order; vector dimension is algorithm-specific (typically 512 for ArcFace).*
+
+### Properties
+
+- <a id="properties/face_feature"></a>**`face_feature`** *(array, required)*
+  - <a id="properties/face_feature/items"></a>**Items** *(array)*
+    - <a id="properties/face_feature/items/items"></a>**Items** *(number)*
+
+### Examples
+
+  ```json
+  {
+      "face_feature": [
+          [
+              0.0412,
+              -0.0187,
+              0.0934,
+              0.0052,
+              -0.0621
+          ],
+          [
+              -0.0298,
+              0.0745,
+              0.0102,
+              -0.0881,
+              0.0356
+          ]
+      ]
+  }
+  ```
+
+
+
 <a id="facemesh"></a>
 
 ## face/mesh
@@ -523,12 +561,17 @@ exported individually.
 ### Definitions
 
 - <a id="defs-HeartRate"></a>**`HeartRate`** *(object)*
-  - <a id="%24defs/HeartRate/properties/fps"></a>**`fps`** *(number, required)*: Current estimated frames per second.
-  - <a id="%24defs/HeartRate/properties/wait_seconds"></a>**`wait_seconds`** *(number, required)*: Seconds remaining until enough data is buffered. 0.0 when HR is ready.
-  - <a id="%24defs/HeartRate/properties/hr_bpm"></a>**`hr_bpm`**: Estimated heart rate in beats per minute. Present only when ready. Default: `null`.
+  - <a id="%24defs/HeartRate/properties/fps"></a>**`fps`** *(number, required)*: Measured frames per second of the processing stream, averaged over a recent sliding window for stability.
+  - <a id="%24defs/HeartRate/properties/wait_seconds"></a>**`wait_seconds`** *(number, required)*: Rough estimate of remaining seconds until the next heart-rate update may be emitted. A value of 0.0 does not guarantee a result; use the presence of hr_bpm to determine whether a valid prediction is available.
+  - <a id="%24defs/HeartRate/properties/hr_bpm"></a>**`hr_bpm`**: Final integrated heart-rate prediction in beats per minute. The combination strategy is algorithm-specific; this field is omitted entirely when the current payload does not carry a reliable estimate. Default: `null`.
     - **Any of**
       - <a id="%24defs/HeartRate/properties/hr_bpm/anyOf/0"></a>*number*
       - <a id="%24defs/HeartRate/properties/hr_bpm/anyOf/1"></a>*null*
+  - <a id="%24defs/HeartRate/properties/roi_hr_bpm"></a>**`roi_hr_bpm`**: Per-region heart-rate estimates keyed by the region identifier. Some regions may be absent from the mapping when no valid estimate can be produced for them, and the field as a whole is omitted for algorithms that do not expose ROI-level results. Default: `null`.
+    - **Any of**
+      - <a id="%24defs/HeartRate/properties/roi_hr_bpm/anyOf/0"></a>*object*: Can contain additional properties.
+        - <a id="%24defs/HeartRate/properties/roi_hr_bpm/anyOf/0/additionalProperties"></a>**Additional properties** *(number)*
+      - <a id="%24defs/HeartRate/properties/roi_hr_bpm/anyOf/1"></a>*null*
 
 ### Examples
 
@@ -537,6 +580,12 @@ exported individually.
       "face_heart_rate": {
           "fps": 30.0,
           "hr_bpm": 72.5,
+          "roi_hr_bpm": {
+              "skin_a_fixed_forehead": 72.5,
+              "skin_b_adaptive_forehead": 72.5,
+              "skin_c_connected_components": 72.5,
+              "skin_legacy": 72.5
+          },
           "wait_seconds": 0.0
       }
   }

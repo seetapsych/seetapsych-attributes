@@ -13,6 +13,7 @@ from .face import (
     FaceDetection,
     FaceDimensionalAffect,
     FaceExpression,
+    FaceFeature,
     FaceGazeScreen,
     FaceHeartRate,
     FaceLandmarks,
@@ -60,6 +61,7 @@ __all__ = [
     "FaceHeartRate",
     "DimensionalAffect",
     "FaceDimensionalAffect",
+    "FaceFeature",
     # head
     "HeadBBox",
     "HeadDetection",
@@ -92,6 +94,8 @@ class Report(TypedDict, total=False):
     face_expression: FaceExpression
     # per-face 280-point dense landmarks (560 floats)
     face_dense_landmarks: FaceDenseLandmarks
+    # per-face L2-normalized feature embeddings for recognition / similarity
+    face_feature: FaceFeature
     # per-face 468-point 3D mesh (1404 normalized floats)
     face_mesh: FaceMesh
     # per-face per-eye screen-space + camera-space point-of-gaze coordinates
