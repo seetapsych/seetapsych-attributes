@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -45,10 +45,8 @@ class SocialGazePerson(BaseModel):
 
 
 class HeadSocialGaze(BaseModel):
-    principal: Optional[SocialGazePerson] = Field(None, description="Left-side / primary person in dyadic interaction.")
-    associate: Optional[SocialGazePerson] = Field(
-        None, description="Right-side / secondary person in dyadic interaction."
-    )
+    principal: SocialGazePerson | None = Field(None, description="Left-side / primary person in dyadic interaction.")
+    associate: SocialGazePerson | None = Field(None, description="Right-side / secondary person in dyadic interaction.")
     success: bool = Field(True, description="Whether at least two heads were detected for social gaze inference.")
 
 

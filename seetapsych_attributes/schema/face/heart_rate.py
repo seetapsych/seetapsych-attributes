@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from typing import Optional
-
 from pydantic import BaseModel, ConfigDict, Field
 
 __all__ = [
@@ -24,7 +22,7 @@ class HeartRate(BaseModel):
             "of hr_bpm to determine whether a valid prediction is available."
         ),
     )
-    hr_bpm: Optional[float] = Field(
+    hr_bpm: float | None = Field(
         None,
         description=(
             "Final integrated heart-rate prediction in beats per minute. The combination "
@@ -32,7 +30,7 @@ class HeartRate(BaseModel):
             "payload does not carry a reliable estimate."
         ),
     )
-    roi_hr_bpm: Optional[dict[str, float]] = Field(
+    roi_hr_bpm: dict[str, float] | None = Field(
         None,
         description=(
             "Per-region heart-rate estimates keyed by the region identifier. Some regions "

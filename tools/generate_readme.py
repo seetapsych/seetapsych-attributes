@@ -4,7 +4,7 @@
 import os
 import os.path
 import re
-from typing import Any
+from typing import Any, cast
 from urllib.parse import unquote
 
 if not os.environ.get("LANG"):
@@ -13,6 +13,12 @@ if not os.environ.get("LANG"):
 import jsonschema2md
 
 from seetapsych_attributes.schema import schema
+
+TEMPLATE_NAME = "template_readme.md"
+OUTPUT_NAME = "README.md"
+
+SLOT_CATALOG = "{{CATALOG}}"
+SLOT_ARTICLES = "{{ARTICLES}}"
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -47,7 +53,7 @@ def _compact_process_value(value: Any, in_examples: bool = False) -> Any:
 
 
 def compact_examples(schema: dict[str, Any]) -> dict[str, Any]:
-    return _compact_process_value(schema, in_examples=False)
+    return cast(dict[str, Any], _compact_process_value(schema, in_examples=False))
 
 
 def schema2markdown(schema: dict[str, Any]) -> str:
@@ -185,12 +191,35 @@ def _replace_figure_refs(md: str, tag: str, num_figures: int) -> str:
     return re.sub(r"(?<!\[)Fig\.\s*(\d+)", replacer, md)
 
 
-def main():
-    output = os.path.join(ROOT, "..", "README.md")
+def load_template(scripts_dir: str) -> str:
+    tpl_path = os.path.join(scripts_dir, TEMPLATE_NAME)
+    with open(tpl_path, encoding="utf-8") as f:
+        return f.read()
 
-    with open(os.path.join(ROOT, "header.md"), "r", encoding="utf-8") as f:
-        header = f.read()
 
+def render_catalog(catalog: list[tuple[str, str, str]]) -> str:
+    return "## Catalog\n\n" + "\n".join([f"- [{k}](#{t}) {b}" for k, t, b in catalog])
+
+
+def render_articles(articles: list[str]) -> str:
+    joined = "\n\n".join(articles)
+    joined = fix_markdown_headers(joined)
+    joined = fix_markdown_links_and_anchors(joined)
+    return joined
+
+
+def render_md(
+    catalog: list[tuple[str, str, str]],
+    articles: list[str],
+    template: str,
+) -> str:
+    rendered = template.replace(SLOT_CATALOG, render_catalog(catalog)).replace(
+        SLOT_ARTICLES, render_articles(articles)
+    )
+    return rendered.rstrip() + "\n"
+
+
+def build_catalog_and_articles() -> tuple[list[tuple[str, str, str]], list[str]]:
     catalog: list[tuple[str, str, str]] = []
     articles: list[str] = []
 
@@ -211,16 +240,23 @@ def main():
         catalog.append((key, tag, brief))
         articles.append(f'<a id="{tag}"></a>\n{md}')
 
-    neck = "## Catalog\n\n" + "\n".join([f"- [{k}](#{t}) {b}" for k, t, b in catalog])
+    return catalog, articles
 
-    joined_articles = "\n\n".join(articles)
-    joined_articles = fix_markdown_headers(joined_articles)
-    joined_articles = fix_markdown_links_and_anchors(joined_articles)
-    content = "\n\n".join([header, neck, joined_articles])
 
-    with open(output, "w", encoding="utf-8") as f:
+def main() -> int:
+    project_root = os.path.dirname(ROOT)
+
+    template = load_template(ROOT)
+    catalog, articles = build_catalog_and_articles()
+    content = render_md(catalog, articles, template)
+
+    output_path = os.path.join(project_root, OUTPUT_NAME)
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
+
+    print(f"Wrote {len(catalog)} attribute schemas -> {os.path.relpath(output_path, os.getcwd())}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

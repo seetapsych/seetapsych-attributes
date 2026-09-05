@@ -60,3 +60,7 @@ catalog (all fields are optional, because a pipeline may only request a subset).
 Per-attribute element types such as `BBox`, `Landmarks`, `Selection`,
 `ActionUnits`, `Expression`, `HeartRate`, `HeadSocialGaze`, etc. are also
 exported individually.
+
+{{CATALOG}}
+
+{{ARTICLES}}
