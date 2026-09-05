@@ -4,6 +4,7 @@
 import os
 import os.path
 import re
+import sys
 from typing import Any, cast
 from urllib.parse import unquote
 
@@ -213,9 +214,7 @@ def render_md(
     articles: list[str],
     template: str,
 ) -> str:
-    rendered = template.replace(SLOT_CATALOG, render_catalog(catalog)).replace(
-        SLOT_ARTICLES, render_articles(articles)
-    )
+    rendered = template.replace(SLOT_CATALOG, render_catalog(catalog)).replace(SLOT_ARTICLES, render_articles(articles))
     return rendered.rstrip() + "\n"
 
 
@@ -259,4 +258,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
