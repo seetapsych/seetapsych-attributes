@@ -493,17 +493,17 @@ exported individually.
   - <a id="%24defs/GazeScreen/properties/gaze"></a>**`gaze`** *(required)*: Refer to *[GazeData](#defs-GazeData)*.
 
 <div align="center" id="facegaze_screen-figure-1">
-  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_screen_px.png" alt="Coordinate system for gaze_screen_px" width="200px" />
+  <img src="assets/gaze_screen_px.png" alt="Coordinate system for gaze_screen_px" width="200px" />
   <p><em><strong>Figure 1.</strong> Coordinate system for <strong>gaze_screen_px</strong></em></p>
 </div>
 
 <div align="center" id="facegaze_screen-figure-2">
-  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_camera_mm_2d.png" alt="Coordinate system for gaze_camera_mm(2D)" width="200px" />
+  <img src="assets/gaze_camera_mm_2d.png" alt="Coordinate system for gaze_camera_mm(2D)" width="200px" />
   <p><em><strong>Figure 2.</strong> Coordinate system for <strong>gaze_camera_mm(2D)</strong></em></p>
 </div>
 
 <div align="center" id="facegaze_screen-figure-3">
-  <img src="https://raw.githubusercontent.com/seetapsych/seetapsych-attributes/main/assets/gaze_camera_mm_3d.png" alt="Coordinate system for gaze_camera_mm(3D)" width="200px" />
+  <img src="assets/gaze_camera_mm_3d.png" alt="Coordinate system for gaze_camera_mm(3D)" width="200px" />
   <p><em><strong>Figure 3.</strong> Coordinate system for <strong>gaze_camera_mm(3D)</strong></em></p>
 </div>
 
