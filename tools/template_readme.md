@@ -65,3 +65,7 @@ exported individually.
 {{CATALOG}}
 
 {{ARTICLES}}
+
+---
+
+<sub><em><span style="color:var(--fgColor-danger, #cf222e);">\*</span> Auto-generated. Do not edit directly. Source: [`tools/generate_readme.py`](tools/generate_readme.py)</em></sub>
