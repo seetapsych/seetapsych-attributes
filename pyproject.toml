@@ -24,6 +24,8 @@ dev = [
     "ruff>=0.6",
     "mypy>=1.11",
     "bandit>=1.7",
+    # pytest: heatmap fields carry numpy.ndarray at runtime
+    "numpy>=2.0",
 ]
 
 [dependency-groups]

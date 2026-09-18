@@ -1,12 +1,13 @@
 # SeetaPsych Attributes
 
-> Face and body based psychology analysis
+> Attribute Contracts for Behavior-based Psychological Measurement
 
-SeetaPsych Lib is a Python library for face- and body-based psychology analysis.
-It provides a modular Pipeline/Runner runtime and an optional Streamlit WebUI.
-
-This project is used to manage the specifications for various attribute outputs,
-providing a unified standard so that different algorithm implementations can produce interchangeable and reusable module outputs.
+SeetaPsych Attributes is the contract layer of the SeetaPsych ecosystem. It defines and maintains the
+specifications for every attribute output — an attribute representing the result of an algorithm or
+processing step — so that all algorithm modules across the project produce interchangeable, reusable,
+and type-consistent payloads. The shared contracts are referenced by the core runtime
+[SeetaPsych Lib](https://github.com/seetapsych/seetapsych-lib) and registered in the global module
+registry at [SeetaPsych Configs](https://github.com/seetapsych/seetapsych-configs).
 
 ## TypedDict Type Hints
 
@@ -558,8 +559,8 @@ exported individually.
 ### Definitions
 
 - <a id="defs-HeartRate"></a>**`HeartRate`** *(object)*
-  - <a id="%24defs/HeartRate/properties/fps"></a>**`fps`** *(number, required)*: Measured frames per second of the processing stream, averaged over a recent sliding window for stability.
-  - <a id="%24defs/HeartRate/properties/wait_seconds"></a>**`wait_seconds`** *(number, required)*: Rough estimate of remaining seconds until the next heart-rate update may be emitted. A value of 0.0 does not guarantee a result; use the presence of hr_bpm to determine whether a valid prediction is available.
+  - <a id="%24defs/HeartRate/properties/fps"></a>**`fps`** *(number, required)*: Measured frames per second of the processing stream, averaged over a recent sliding window for stability. Sentinel: a negative value (``-1.0`` by convention) indicates that no reliable FPS estimate is currently available (e.g. empty stream, insufficient buffered frames, missing timing source).
+  - <a id="%24defs/HeartRate/properties/wait_seconds"></a>**`wait_seconds`** *(number, required)*: Rough estimate of remaining seconds until the next heart-rate update may be emitted. ``0.0`` does not guarantee a result; use the presence of ``hr_bpm`` to determine whether a valid prediction is available. Sentinel: a negative value (``-1.0`` by convention) indicates that the update schedule cannot be predicted yet.
   - <a id="%24defs/HeartRate/properties/hr_bpm"></a>**`hr_bpm`**: Final integrated heart-rate prediction in beats per minute. The combination strategy is algorithm-specific; this field is omitted entirely when the current payload does not carry a reliable estimate. Default: `null`.
     - **Any of**
       - <a id="%24defs/HeartRate/properties/hr_bpm/anyOf/0"></a>*number*
@@ -593,6 +594,15 @@ exported individually.
       "face_heart_rate": {
           "fps": 30.0,
           "wait_seconds": 5.2
+      }
+  }
+  ```
+
+  ```json
+  {
+      "face_heart_rate": {
+          "fps": -1.0,
+          "wait_seconds": -1.0
       }
   }
   ```

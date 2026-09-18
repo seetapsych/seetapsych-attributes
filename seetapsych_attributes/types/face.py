@@ -2,6 +2,11 @@
 
 from typing import TypedDict
 
+try:
+    from typing import Required
+except ImportError:  # pragma: no cover - py<3.11
+    from typing_extensions import Required
+
 __all__ = [
     "BBox",
     "FaceDetection",
@@ -185,16 +190,20 @@ FaceGazeScreen = list[GazeScreen]
 class HeartRate(TypedDict, total=False):
     """Heart rate estimation from buffered face video frames.
 
-    Always includes fps and wait_seconds; hr_bpm and roi_hr_bpm appear only when a reliable estimate is available.
+    Field contract:
+    - ``fps`` and ``wait_seconds`` are always present (wrapped as ``Required``).
+      When no reliable measurement is available they are emitted as a negative
+      sentinel value (``-1.0`` by convention), e.g. on empty streams or when
+      fewer than the expected buffered frames have been accumulated.
+      ``wait_seconds == 0.0`` means "may refresh on the next frame" but does
+      not guarantee a valid prediction.
+    - ``hr_bpm`` and ``roi_hr_bpm`` appear only when a reliable estimate is
+      available; algorithm-specific strategies may leave them absent.
     """
 
-    # Measured frames per second of the processing stream, averaged over a recent window.
-    fps: float
-    # Rough estimate of remaining seconds until the next HR update may be emitted.
-    wait_seconds: float
-    # Final integrated heart-rate prediction in beats per minute.
+    fps: Required[float]
+    wait_seconds: Required[float]
     hr_bpm: float
-    # Per-ROI heart-rate estimates keyed by region name; some ROIs may be absent when no valid data.
     roi_hr_bpm: dict[str, float]
 
 

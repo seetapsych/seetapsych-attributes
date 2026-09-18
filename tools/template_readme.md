@@ -1,12 +1,13 @@
 # SeetaPsych Attributes
 
-> Face and body based psychology analysis
+> Attribute Contracts for Behavior-based Psychological Measurement
 
-SeetaPsych Lib is a Python library for face- and body-based psychology analysis.
-It provides a modular Pipeline/Runner runtime and an optional Streamlit WebUI.
-
-This project is used to manage the specifications for various attribute outputs,
-providing a unified standard so that different algorithm implementations can produce interchangeable and reusable module outputs.
+SeetaPsych Attributes is the contract layer of the SeetaPsych ecosystem. It defines and maintains the
+specifications for every attribute output — an attribute representing the result of an algorithm or
+processing step — so that all algorithm modules across the project produce interchangeable, reusable,
+and type-consistent payloads. The shared contracts are referenced by the core runtime
+[SeetaPsych Lib](https://github.com/seetapsych/seetapsych-lib) and registered in the global module
+registry at [SeetaPsych Configs](https://github.com/seetapsych/seetapsych-configs).
 
 ## TypedDict Type Hints
 

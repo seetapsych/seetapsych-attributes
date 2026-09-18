@@ -11,15 +11,19 @@ class HeartRate(BaseModel):
     fps: float = Field(
         ...,
         description=(
-            "Measured frames per second of the processing stream, averaged over a recent sliding window for stability."
+            "Measured frames per second of the processing stream, averaged over a recent sliding window "
+            "for stability. Sentinel: a negative value (``-1.0`` by convention) indicates that no reliable "
+            "FPS estimate is currently available (e.g. empty stream, insufficient buffered frames, missing "
+            "timing source)."
         ),
     )
     wait_seconds: float = Field(
         ...,
         description=(
-            "Rough estimate of remaining seconds until the next heart-rate update "
-            "may be emitted. A value of 0.0 does not guarantee a result; use the presence "
-            "of hr_bpm to determine whether a valid prediction is available."
+            "Rough estimate of remaining seconds until the next heart-rate update may be emitted. "
+            "``0.0`` does not guarantee a result; use the presence of ``hr_bpm`` to determine whether a "
+            "valid prediction is available. Sentinel: a negative value (``-1.0`` by convention) indicates "
+            "that the update schedule cannot be predicted yet."
         ),
     )
     hr_bpm: float | None = Field(
@@ -65,6 +69,12 @@ class Report(BaseModel):
                     "face_heart_rate": {
                         "fps": 30.0,
                         "wait_seconds": 5.2,
+                    }
+                },
+                {
+                    "face_heart_rate": {
+                        "fps": -1.0,
+                        "wait_seconds": -1.0,
                     }
                 },
             ],
